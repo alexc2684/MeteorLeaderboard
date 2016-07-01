@@ -6,5 +6,9 @@
   {{> leaderboard}}
 </body>
 <template name="leaderboard">
-  Hello World
+  <ul>
+    {{#each player}}
+      <li class='player {{selectedClass}}'>{{name}}: {{score}} </li> 
+    {{/each}}
+  </ul>
 </template>

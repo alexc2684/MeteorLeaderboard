@@ -1,8 +1,22 @@
 PlayersList = new Mongo.Collection("players");
 if (Meteor.isClient) {
-  Templaye.leaderboard.helpers({
+  Template.leaderboard.helpers({
     'player': function(){
-      return "Some other text";
+      return PlayersList.find();
+    },
+    'selectedClass': function(){
+        var playerId = this._id;
+        var selectedPlayer = Session.get('selectedPlayer');
+        if (playerId == selectedPlayer){
+          return "selected";
+        }
     }
-  })
+  });
+
+  Template.leaderboard.events({
+    'click .player': function(){
+      var playerId = this._id;
+      Session.set('selectedPlayer', playerId);
+    }
+  });
 }
