@@ -2,13 +2,36 @@
   <title> Leaderboard</title>
 </head>
 <body>
+  <p>{{> loginButtons}}</p>
   <h1>Leaderboard</h1>
   {{> leaderboard}}
 </body>
+
+<template name="addPlayerForm">
+  <form>
+    <input type="text" name="playerName">
+    <input type="submit" value="Add Player">
+  </form>
+</template>
+
 <template name="leaderboard">
-  <ul>
-    {{#each player}}
-      <li class='player {{selectedClass}}'>{{name}}: {{score}} </li> 
-    {{/each}}
-  </ul>
+  {{#if currentUser}}
+    {{> addPlayerForm}}
+    <ul>
+      {{#each player}}
+        <li class='player {{selectedClass}}'>{{name}}: {{score}} </li>
+      {{/each}}
+
+    {{#if selectedPlayer}}
+      <li>Selected Player: {{selectedPlayer.name}}</li>
+      <li>
+        <button class="increment">Give 5 Points</button>
+        <button class="dec">Subtract 5 points</button>
+        <button class="remove">Remove Player</button>
+      </li>
+    {{/if}}
+    </ul>
+  {{else}}
+    <p>Login to see cool stuff.</p>
+  {{/if}}
 </template>
